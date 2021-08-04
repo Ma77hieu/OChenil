@@ -24,7 +24,7 @@ def logout_user(request):
     """view managing user log-out"""
     logout(request)
     user_message = LOG_OUT_OK
-    return render(request, 'home.html', {'user_message': user_message})
+    return render(request, 'mainpage.html', {'user_message': user_message})
 
 
 def user(request):

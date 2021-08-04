@@ -51,7 +51,11 @@
                 </ul>
 
             </div>
+            {% if request.user.id %}
+            <a class="text-warning col-2" href="{% url 'logout'%}">Se déconnecter</a>
+            {%else%}
             <a class="navbar-brand col-2" href="{% url 'signin'%}">Mon compte</a>
+            {% endif %}
         </div>
     </nav>
     {% block main_content %}
