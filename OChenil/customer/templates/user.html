@@ -19,8 +19,29 @@
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
-        <p class="lead">Médor, 8 ans, grand chien, bouvier bernois</p>
-        <p class="lead">Pitchoune, 2 ans, petit chien, teckel</p>
+        {% if dogs %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Chien</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Taille</th>
+                    <th scope="col">Race</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dog in dogs %}
+                <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{dog.dog_name}}</td>
+                    <td>{{dog.dog_age}}</td>
+                    <td>{{dog.dog_size}}</td>
+                    <td>{{dog.dog_race}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </section>
 
     <!-- Add dogs section-->
@@ -57,37 +78,26 @@
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
+        {% if bookings %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Chien</th>
-                    <th scope="col">Date d'arrivée</th>
-                    <th scope="col">Date de départ</th>
+                    <th scope="col">Date arrivée</th>
+                    <th scope="col">Date départ</th>
                 </tr>
             </thead>
             <tbody>
+                {% for booking in bookings %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Médor</td>
-                    <td>02/08/2021</td>
-                    <td>04/08/2021</td>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{booking.dog.dog_name}}</td>
+                    <td>{{booking.start_date}}</td>
+                    <td>{{booking.end_date}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Pitchoune</td>
-                    <td>02/08/2021</td>
-                    <td>04/08/2021</td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Médor</td>
-                    <td>22/08/2021</td>
-                    <td>27/08/2021</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
+        {% endif %}
     </section>
-
-
     {% endblock %}

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import logout
 from generic.constants import LOG_OUT_OK
-
 from .services import signup_service, signin_service
 
 

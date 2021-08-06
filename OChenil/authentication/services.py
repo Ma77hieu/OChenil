@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from generic.constants import LOG_IN_OK, INVALID_CREDENTIALS
+from customer.services import Services
 
 
 # Create your views here.
@@ -63,4 +64,11 @@ def signin_service(request):
             return ('signin.html',
                     {'form': form, 'error': INVALID_CREDENTIALS})
         else:
-            return ('user.html', {'user_message': LOG_IN_OK})
+            add_dog_section = Services().dog_management(request)
+            dog_form = add_dog_section[0]
+            user_feedback = add_dog_section[1]
+            dogs = Services().list_dogs(request)
+            bookings = Services().list_bookings(request)
+            context = (
+                {'form': dog_form, 'user_feedback': user_feedback, 'dogs': dogs, 'bookings': bookings})
+            return ('user.html', context)

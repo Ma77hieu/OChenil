@@ -10,7 +10,12 @@ class Services():
 
     def dog_management(self, request):
         """retrieve all the information about the dogs of the user"""
-        if request.method == "POST":
+        # the conditions on request.POST['username'] are used to detect
+        # users currently on /signin url (in comparison of the others on /user url)
+        if request.POST['username'] or request.method == "GET":
+            message = ''
+            dog_form = DogForm()
+        if (not request.POST['username']) and request.method == "POST":
             if not request.user.id:
                 message = NEED_LOGIN
             elif request.user.id:
@@ -27,7 +32,26 @@ class Services():
                 new_dog.save()
                 message = DOG_ADDED
             dog_form = DogForm()
-        if request.method == "GET":
-            message = ''
-            dog_form = DogForm()
+
         return (dog_form, message)
+
+    def list_dogs(self, request):
+        """returns all the dogs objects linked to the user"""
+        if not request.user.id:
+            pass
+        elif request.user.id:
+            d_owner = User.objects.get(pk=request.user.id)
+            dogs = Dog.objects.filter(owner=d_owner)
+        return dogs
+
+    def list_bookings(self, request):
+        """returns all the bookings linked to the user"""
+        if not request.user.id:
+            pass
+        elif request.user.id:
+            d_owner = User.objects.get(pk=request.user.id)
+            bookings = Booking.objects.filter(user=d_owner)
+        #     for booking in bookings:
+        #         dog_name = Dog.objects.get(pk=booking.id).values('')
+        #         booking.dog_name = dog_name
+        return bookings

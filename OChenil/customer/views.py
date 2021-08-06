@@ -6,8 +6,11 @@ from customer.services import Services
 
 def user(request):
     """view managing the acess to the user's account"""
-    dogs_info = Services().dog_management(request)
-    dog_form = dogs_info[0]
-    user_feedback = dogs_info[1]
-    context = ({'form': dog_form, 'user_feedback': user_feedback})
+    add_dog_section = Services().dog_management(request)
+    dog_form = add_dog_section[0]
+    user_feedback = add_dog_section[1]
+    dogs = Services().list_dogs(request)
+    bookings = Services().list_bookings(request)
+    context = (
+        {'form': dog_form, 'user_feedback': user_feedback, 'dogs': dogs, 'bookings': bookings})
     return render(request, 'user.html', context)
