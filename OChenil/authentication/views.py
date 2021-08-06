@@ -25,8 +25,3 @@ def logout_user(request):
     logout(request)
     user_message = LOG_OUT_OK
     return render(request, 'mainpage.html', {'user_message': user_message})
-
-
-def user(request):
-    """view managing the acess to the user's saveds alternatives page"""
-    return render(request, 'user.html')

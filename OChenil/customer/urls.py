@@ -1,7 +1,8 @@
 from django.urls import path
-from generic import views
+from customer import views
 
 
 urlpatterns = [
-    path('', views.homepage, name="home"),
+    path('user', views.user, name="user"),
+    path('signin/<int:id_user>', views.user, name="useraftersignin"),
 ]

@@ -4,6 +4,90 @@
 {% endblock %}
 {% block main_content %}
 {% load static %}
+<p class="my-3"><br></p>
+{% if user_feedback %}
+<div class="alert alert-success w-100 mt-5" role="alert">
+    <p> Nouveau chien ajouté</p>
+</div>
+{%endif%}
+
+<div class="container mt-5 ">
+    <section class="mt-3">
+        <!-- My dogs section-->
+        <h2 class="page-section-heading text-uppercase text-secondary mb-0">Mes chiens</h2>
+        <!-- Divider-->
+        <div class="divider-custom d-flex justify-content-start">
+            <div class="divider-custom-line"></div>
+        </div>
+        <p class="lead">Médor, 8 ans, grand chien, bouvier bernois</p>
+        <p class="lead">Pitchoune, 2 ans, petit chien, teckel</p>
+    </section>
+
+    <!-- Add dogs section-->
+    <section class="mt-5 ">
+        <h2 class="page-section-heading  text-uppercase text-secondary mb-0 mt-3">ajouter un chien</h2>
+        <!-- Divider-->
+        <div class="divider-custom d-flex justify-content-start">
+            <div class="divider-custom-line"></div>
+        </div>
+        <form class="py-2" method="POST" action="{% url 'user'%}">
+            {% csrf_token %}
+            <label for="dog_name" class="form-label">Nom du chien</label>
+            <p aria-label="champ nom du chien">{{form.dog_name}}</p>
+            <label for="dog_age" class="form-label">Age du chien</label>
+            <p aria-label="champ age du chien">{{form.dog_age}}</p>
+            <label for="dog_size" class="form-label">Taille du chien</label>
+            <p aria-label="champ size du chien">{{form.dog_size}}</p>
+            <label for="dog_race" class="form-label">Race du chien</label>
+            <p aria-label="champ race du chien">{{form.dog_race}}</p>
+            <div class="row">
+                <div class="col-12 my-2">
+                    <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
+                        <a class="text-white">Ajouter un chien</a>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="py-3 ">
+        <!-- My bookings section-->
+        <h2 class="page-section-heading  text-uppercase text-secondary mb-0">Mes reservations</h2>
+        <!-- Divider-->
+        <div class="divider-custom d-flex justify-content-start">
+            <div class="divider-custom-line"></div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Chien</th>
+                    <th scope="col">Date d'arrivée</th>
+                    <th scope="col">Date de départ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Médor</td>
+                    <td>02/08/2021</td>
+                    <td>04/08/2021</td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Pitchoune</td>
+                    <td>02/08/2021</td>
+                    <td>04/08/2021</td>
+                </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Médor</td>
+                    <td>22/08/2021</td>
+                    <td>27/08/2021</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
 
-{% endblock %}
+    {% endblock %}

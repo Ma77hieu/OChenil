@@ -34,3 +34,12 @@ LOG_IN_OK = "Vous êtes désormais identifié"
 
 # time between each selenium test
 WAIT_TIME = 0
+
+# new dog addition went smoothly
+DOG_ADDED = "Nouveau chien ajouté"
+
+# failed new dog addition
+FAIL_DOG_ADDED = "Echec de l'ajout du chien, merci de réessayer"
+
+# user feedback:  need to be looged in to do this action
+NEED_LOGIN = "Vous devez vous connecter pour effectuer cette action"
