@@ -7,7 +7,7 @@
 <p class="my-3"><br></p>
 {% if user_feedback %}
 <div class="alert alert-success w-100 mt-5" role="alert">
-    <p> Nouveau chien ajouté</p>
+    <p> {{user_feedback}}</p>
 </div>
 {%endif%}
 
@@ -20,51 +20,31 @@
             <div class="divider-custom-line"></div>
         </div>
         {% if dogs %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Chien</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Taille</th>
-                    <th scope="col">Race</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for dog in dogs %}
-                <tr>
-                    <!-- <th scope="row">1</th> -->
-                    <td>{{dog.dog_name}}</td>
-                    <td>{{dog.dog_age}}</td>
-                    <td>{{dog.dogsize.size_name}}</td>
-                    <td>{{dog.dog_race}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for dog in dogs %}
+        <p>{{dog.dog_name}}</p>
+        {% endfor %}
         {% endif %}
     </section>
 
     <!-- Add dogs section-->
     <section class="mt-5 ">
-        <h2 class="page-section-heading  text-uppercase text-secondary mb-0 mt-3">ajouter un chien</h2>
+        <h2 class="page-section-heading  text-uppercase text-secondary mb-0 mt-3">Faire une réservation</h2>
         <!-- Divider-->
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
-        <form class="py-2" method="POST" action="{% url 'user'%}">
+        <form class="py-2" method="POST" action="{% url 'booking'%}">
             {% csrf_token %}
-            <label for="dog_name" class="form-label">Nom du chien</label>
-            <p aria-label="champ nom du chien">{{form.dog_name}}</p>
-            <label for="dog_age" class="form-label">Age du chien</label>
-            <p aria-label="champ age du chien">{{form.dog_age}}</p>
-            <label for="dog_size" class="form-label">Taille du chien</label>
-            <p aria-label="champ size du chien">{{form.dogsize}}</p>
-            <label for="dog_race" class="form-label">Race du chien</label>
-            <p aria-label="champ race du chien">{{form.dog_race}}</p>
+            <label for="selected_dog" class="form-label">Selectionner un chien</label>
+            <p aria-label="champ selection chien">{{form.dog_name}}</p>
+            <label for="start_date" class="form-label">Date d'arrivée</label>
+            <p aria-label="champ date d'arrivée">{{form.start_date}}</p>
+            <label for="end_date" class="form-label">Date de départ</label>
+            <p aria-label="champ date de départ">{{form.end_date}}</p>
             <div class="row">
                 <div class="col-12 my-2">
                     <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
-                        <a class="text-white">Ajouter un chien</a>
+                        <a class="text-white">Réserver</a>
                     </button>
                 </div>
             </div>

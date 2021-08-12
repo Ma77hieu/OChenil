@@ -43,3 +43,9 @@ FAIL_DOG_ADDED = "Echec de l'ajout du chien, merci de réessayer"
 
 # user feedback:  need to be looged in to do this action
 NEED_LOGIN = "Vous devez vous connecter pour effectuer cette action"
+
+# user feedback:  no more available boxes at those dates
+NO_AVAILABILITY = "Désolé nous n'avons plus de disponibilités à ces dates"
+
+# user feedback:  no more available boxes at those dates
+BOOKING_OK = "Reservation effectuée avec succès"
