@@ -26,7 +26,7 @@ class Box(models.Model):
     box_size = models.ForeignKey(Size, on_delete=models.CASCADE, default=2)
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
 
 class Unavailability(models.Model):
@@ -35,7 +35,7 @@ class Unavailability(models.Model):
     box = models.ForeignKey(Box, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)
 
 
 class Booking(models.Model):
@@ -48,4 +48,4 @@ class Booking(models.Model):
     booking_size = models.ForeignKey(Size, on_delete=models.CASCADE, default=2)
 
     def __str__(self):
-        return self.pk
+        return str(self.pk)

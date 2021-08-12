@@ -1,6 +1,6 @@
 {% extends "menu.html" %}
 {% block title %}
-<title>OChenil - Mon compte</title>
+<title>OChenil - Admin</title>
 {% endblock %}
 {% block main_content %}
 {% load static %}
@@ -12,10 +12,10 @@
 {%endif%}
 
 <div class="container mt-5 ">
-    <!-- Make booking section-->
-    <section class="mt-5 ">
+
+    <!-- <section class="mt-5 ">
         <h2 class="page-section-heading  text-uppercase text-secondary mb-0 mt-3">Faire une réservation</h2>
-        <!-- Divider-->
+
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
@@ -35,35 +35,42 @@
                 </div>
             </div>
         </form>
-    </section>
+    </section> -->
 
     <section class="py-3 ">
         <!-- My bookings section-->
-        <h2 class="page-section-heading  text-uppercase text-secondary mb-0">Mes reservations</h2>
+        <h2 class="page-section-heading  text-uppercase text-secondary mb-0">Toutes les reservations</h2>
         <!-- Divider-->
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
-        {% if bookings %}
+
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">ID</th>
                     <th scope="col">Chien</th>
+                    <th scope="col">Taille de Chien</th>
                     <th scope="col">Date arrivée</th>
                     <th scope="col">Date départ</th>
+                    <th scope="col">Box</th>
+                    <th scope="col">Taille de box</th>
                 </tr>
             </thead>
             <tbody>
                 {% for booking in bookings %}
                 <tr>
-                    <!-- <th scope="row">1</th> -->
+                    <td>{{booking.id}}</td>
                     <td>{{booking.dog.dog_name}}</td>
+                    <td>{{booking.dog.dogsize}}</td>
                     <td>{{booking.start_date}}</td>
                     <td>{{booking.end_date}}</td>
+                    <td>{{booking.box}}</td>
+                    <td>{{booking.box.box_size}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        {% endif %}
+
     </section>
     {% endblock %}

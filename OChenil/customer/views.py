@@ -28,8 +28,8 @@ def book_dates(request):
     return render(request, 'booking.html', context)
 
 
-def box_choice(request):
-    available_box = Services().box_choice(request)
-    context = (
-        {'user_feedback': available_box})
-    return render(request, 'user.html', context)
+# def box_choice(request):
+#     available_box = Services().box_choice(request)
+#     context = (
+#         {'user_feedback': available_box})
+#     return render(request, 'user.html', context)

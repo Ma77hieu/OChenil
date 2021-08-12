@@ -49,3 +49,9 @@ NO_AVAILABILITY = "Désolé nous n'avons plus de disponibilités à ces dates"
 
 # user feedback:  no more available boxes at those dates
 BOOKING_OK = "Reservation effectuée avec succès"
+
+# ADMIN user feedback:  booking not deleted
+BOOKING_NOT_DELETED = "La réservation n'a pas pu être supprimée"
+
+# ADMIN user feedback:  booking not deleted
+BOOKING_DELETION_OK = 'La réservation a bien été supprimée'
