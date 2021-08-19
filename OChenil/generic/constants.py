@@ -55,3 +55,6 @@ BOOKING_NOT_DELETED = "La réservation n'a pas pu être supprimée"
 
 # ADMIN user feedback:  booking not deleted
 BOOKING_DELETION_OK = 'La réservation a bien été supprimée'
+
+# SETTING for bookings list in admin view:how many days displayed
+NBR_DAYS_CAPACITY = 5

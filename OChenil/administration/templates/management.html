@@ -38,13 +38,12 @@
     </section> -->
 
     <section class="py-3 ">
-        <!-- My bookings section-->
+        <!-- All bookings section-->
         <h2 class="page-section-heading  text-uppercase text-secondary mb-0">Toutes les reservations</h2>
         <!-- Divider-->
         <div class="divider-custom d-flex justify-content-start">
             <div class="divider-custom-line"></div>
         </div>
-
         <table class="table">
             <thead>
                 <tr>
@@ -67,6 +66,96 @@
                     <td>{{booking.end_date}}</td>
                     <td>{{booking.box}}</td>
                     <td>{{booking.box.box_size}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class='row'>
+            <div class="col-12 col-md-6">
+                <h2 class="page-section-heading text-uppercase text-secondary pt-3 mb-0">Annuler une réservation</h2>
+                <!-- Divider-->
+                <div class="divider-custom d-flex justify-content-start">
+                    <div class="divider-custom-line"></div>
+                </div>
+                <form class="py-2" method="POST" action="{% url 'management'%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="required_action" value="cancel_booking">
+                    <label for="id_to_be_canceled" class="form-label">Id de la réservation</label>
+                    <p aria-label="liste des ids de reservation">{{ booking_list_form.id_to_be_canceled}}</p>
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
+                                <a class="text-white">Annuler</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="page-section-heading text-uppercase text-secondary pt-3 mb-0">Indisponibilité de box</h2>
+                <!-- Divider-->
+                <div class="divider-custom d-flex justify-content-start">
+                    <div class="divider-custom-line"></div>
+                </div>
+                <form class="py-2" method="POST" action="{% url 'management'%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="required_action" value="unavailability">
+                    <label for="id_box" class="form-label">Id du box</label>
+                    <p aria-label="liste des ids des boxs">{{ box_list_form.id_box}}</p>
+                    <label for="box_unavailbility_start" class="form-label">Date début indispo</label>
+                    <p aria-label="date début indisponibilité">{{ box_list_form.start}}</p>
+                    <label for="box_unavailbility_end" class="form-label">Date fin indispo</label>
+                    <p aria-label="date fin indisponibilité">{{ box_list_form.end}}</p>
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
+                                <a class="text-white">Déclarer indispo</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-3 col-12">
+        <!-- Capacity section-->
+        <h2 class="page-section-heading  text-uppercase text-secondary mb-0">Places restantes/jour</h2>
+        <!-- Divider-->
+        <div class="divider-custom d-flex justify-content-start">
+            <div class="divider-custom-line"></div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Jour</th>
+                    <th scope="col">Nbre tot box petit</th>
+                    <th scope="col">Nbre resa petit</th>
+                    <th scope="col">Nbre box indispo petit</th>
+                    <th scope="col">Nbre places restantes petit</th>
+                    <th scope="col">Nbre tot box grand</th>
+                    <th scope="col">Nbre resa grand</th>
+                    <th scope="col">Nbre box indispo grand</th>
+                    <th scope="col">Nbre places restantes grand</th>
+                    <!-- <th scope="col">Taille de Chien</th>
+                    <th scope="col">Date arrivée</th>
+                    <th scope="col">Date départ</th>
+                    <th scope="col">Box</th>
+                    <th scope="col">Taille de box</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for day in capacity %}
+                <tr>
+                    <td>{{day.0}}</td>
+                    <td>{{day.1.0}}</td>
+                    <td>{{day.1.1}}</td>
+                    <td>{{day.1.2}}</td>
+                    <td>{{day.1.3}}</td>
+                    <td>{{day.1.4}}</td>
+                    <td>{{day.1.5}}</td>
+                    <td>{{day.1.6}}</td>
+                    <td>{{day.1.7}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
