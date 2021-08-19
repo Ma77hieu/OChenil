@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.widgets import SelectDateWidget
 from administration.models import Dog
 from authentication.models import User
 
@@ -17,8 +18,10 @@ class DogForm(forms.Form):
 
 class BookingForm(forms.Form):
     dog_name = forms.ChoiceField()
-    start_date = forms.DateField()
-    end_date = forms.DateField()
+    start_date = forms.DateField(
+        widget=SelectDateWidget())
+    end_date = forms.DateField(
+        widget=SelectDateWidget())
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
