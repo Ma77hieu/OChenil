@@ -35,12 +35,21 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
-    def test_login(self):
-        """test the user login function with good credentials"""
-        self.login()
+    def test_login_regular_user(self):
+        """test the regular user login function with good credentials"""
+        self.login('regular_user')
         logout_button = self.selenium.find_element_by_name('logout')
-        custom_log("logout_button", logout_button)
+        login = False
         if logout_button:
+            login = True
+        assert login is True
+
+    def test_login_admin(self):
+        """test the admin user login function with good credentials"""
+        self.login('admin')
+        login = False
+        custom_log('self.selenium.current_url', self.selenium.current_url)
+        if "Toutes les réservations" in self.selenium.page_source:
             login = True
         assert login is True
 
@@ -71,7 +80,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_logout(self):
         """test the logout function"""
-        self.login()
+        self.login('regular_user')
         self.selenium.get('{}'.format(self.live_server_url + '/home'))
         timeout = 2
         logout_button = self.selenium.find_element_by_name('logout')
@@ -84,14 +93,24 @@ class MySeleniumTests(StaticLiveServerTestCase):
             logout = True
         assert logout is True
 
-    def login(self):
-        "login function used by various tests"
+    def login(self, role):
+        """login function used by other tests
+
+        Parameters:
+        role (can be regular_user or admin based on user type)
+        """
         timeout = 2
+        if role == "regular_user":
+            USER = config('USER_LOGIN')
+            PWD = config('USER_PWD')
+        elif role == "admin":
+            USER = config('ADMIN_USER_LOGIN')
+            PWD = config('ADMIN_USER_PWD')
         self.selenium.get('{}'.format(self.live_server_url + '/signin'))
         username_input = self.selenium.find_elements_by_name("username")[0]
-        username_input.send_keys(config('USER_LOGIN'))
+        username_input.send_keys(USER)
         password_input = self.selenium.find_elements_by_name("password")[0]
-        password_input.send_keys(config('USER_PWD'))
+        password_input.send_keys(PWD)
         password_input.send_keys(Keys.RETURN)
         WebDriverWait(self.selenium, timeout).until(
             lambda driver: driver.find_element_by_tag_name('body'))
