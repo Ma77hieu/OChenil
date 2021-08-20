@@ -43,10 +43,10 @@
                             href="{% url 'home'%}#location">Accès</a></li>
                     {%if user.id%}
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded bg-primary"
-                            href="{% url 'booking'%}">Réservation</a></li>
+                            href="{% url 'booking'%}" id="menu_booking_link_usr">Réservation</a></li>
                     {%else%}
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded bg-primary"
-                            href="{% url 'signin'%}">Réservation</a></li>
+                            href="{% url 'signin'%}" id="menu_booking_link_no_usr">Réservation</a></li>
                     {%endif%}
                     {%if user.is_superuser%}
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded bg-primary"
