@@ -1,0 +1,379 @@
+[
+    {
+        "model": "sessions.session",
+        "pk": "3ggeqqud93rc0u1e678u2rhf8vcjn1i4",
+        "fields": {
+            "session_data": "e30:1mEADS:OsnDUmOw1azbKmmM0o13HipDovTvrsPkZJ8Olnv0RyI",
+            "expire_date": "2021-08-26T12:53:46.945Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "6epog3hpkt8k0n880itl54j3dcihnxk1",
+        "fields": {
+            "session_data": "e30:1mEAEZ:6U4QhTxNS9vFdAMdlI_YfECNQrRjb8Zch08fLbsHNdg",
+            "expire_date": "2021-08-26T12:54:55.718Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "c7juy6lldcwjqj7lewgv0d8h0zzxib2g",
+        "fields": {
+            "session_data": "e30:1mC1H6:7XF12aR-meACejceiOo8pmlhiEb8MqfiYn5iCdymmV0",
+            "expire_date": "2021-08-20T14:56:40.845Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "dk2v7c225e47nrt56wepvmtylrtm5s2b",
+        "fields": {
+            "session_data": "e30:1mC0Tl:Vnfwol2KzHbvxAyZDBpyCcucyoSrq8OKgY5Tz3lgYt0",
+            "expire_date": "2021-08-20T14:05:41.943Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "dwk1wd86pe5k6lf6iwhrgnnefa94y1t3",
+        "fields": {
+            "session_data": "e30:1mC1Fg:jEZPpP32ukuu1bD9HZfmQ2aulU6fB4IF5Ea_2zkabuw",
+            "expire_date": "2021-08-20T14:55:12.500Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "el8tc2ksw9qzyxd55ybhvzp94ivurweb",
+        "fields": {
+            "session_data": "e30:1mD1Hd:gW3i5em1zy2LXxqLhDNGWh7JNUO5jS-9ZjLc0IRxoc0",
+            "expire_date": "2021-08-23T09:09:21.533Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fswgddpndn2urfnby0yt8nhfo6wjdorv",
+        "fields": {
+            "session_data": "e30:1mC1K8:EPEly0D6QUMX5MyHI3CRxemfNoVc6wyF0jtUk-PNly0",
+            "expire_date": "2021-08-20T14:59:48.896Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ftsybhoudc9qc4g7qpd3nxm5wud66qhp",
+        "fields": {
+            "session_data": "e30:1mC0PE:2gQYxGA3v8-4_xQX0P0ptojctY-kYpXGOZFvZY87_ow",
+            "expire_date": "2021-08-20T14:01:00.396Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gtdvfrzfshtzlkgyiu096eh6krlmumvw",
+        "fields": {
+            "session_data": "e30:1mEA96:3iRqUi53pVa3HYa6tEQwAp4rVdNzqIQJyxcvsQTJUj4",
+            "expire_date": "2021-08-26T12:49:16.642Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "twaj9pfm2t9klgv6kngcjqgiqo3kw3eb",
+        "fields": {
+            "session_data": "e30:1mC1II:dPOSbHJE2whDmyK_AsHzh7H184VjYeJDzl5exoxLZCQ",
+            "expire_date": "2021-08-20T14:57:54.619Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "uwff9jon49phejlc2hx0mh2jx6cck0k3",
+        "fields": {
+            "session_data": "e30:1mC177:Z09k_xkR8Pqjkh9xHafh9OSX2Uldnd6paBG1X2-1gQQ",
+            "expire_date": "2021-08-20T14:46:21.718Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "x1180qg9izr1xz277awanst337eanq0m",
+        "fields": {
+            "session_data": ".eJxVjLEOgzAMRP8lcxXFOEGkY_d-A3JsU2irRCIwof57QWJop5PuvbvN9LQuY79WnftJzNWgufx2ifil-QDypPwolkte5inZQ7EnrfZeRN-30_07GKmO-9ojCpND37BgaISSeoAQErkYOq-x3TNEZuxokDg0ANA6aNERalIwny_T5DdV:1mEByz:x8TROZIYiBh9cXKwgjLCws6Od9vufyqe95atT4EsIHw",
+            "expire_date": "2021-08-26T14:46:57.489Z"
+        }
+    },
+    {
+        "model": "administration.size",
+        "pk": 1,
+        "fields": {
+            "size_name": "petit"
+        }
+    },
+    {
+        "model": "administration.size",
+        "pk": 2,
+        "fields": {
+            "size_name": "grand"
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 8,
+        "fields": {
+            "dog_name": "M�dor",
+            "dog_age": 8,
+            "dogsize": 2,
+            "dog_race": "Bouvier bernois",
+            "owner": 1
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 9,
+        "fields": {
+            "dog_name": "Pitchoune",
+            "dog_age": 2,
+            "dogsize": 1,
+            "dog_race": "Teckel",
+            "owner": 1
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 10,
+        "fields": {
+            "dog_name": "Lili",
+            "dog_age": 5,
+            "dogsize": 2,
+            "dog_race": "Labrador",
+            "owner": 1
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 11,
+        "fields": {
+            "dog_name": "Bianca",
+            "dog_age": 12,
+            "dogsize": 1,
+            "dog_race": "Carlin",
+            "owner": 1
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 14,
+        "fields": {
+            "dog_name": "Tcho",
+            "dog_age": 7,
+            "dogsize": 1,
+            "dog_race": "Chihuahua",
+            "owner": 2
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 15,
+        "fields": {
+            "dog_name": "Doggo",
+            "dog_age": 5,
+            "dogsize": 2,
+            "dog_race": "Berger autralien",
+            "owner": 2
+        }
+    },
+    {
+        "model": "administration.dog",
+        "pk": 16,
+        "fields": {
+            "dog_name": "Titan",
+            "dog_age": 4,
+            "dogsize": 2,
+            "dog_race": "Dobberman",
+            "owner": 4
+        }
+    },
+    {
+        "model": "administration.box",
+        "pk": 1,
+        "fields": {
+            "box_size": 1
+        }
+    },
+    {
+        "model": "administration.box",
+        "pk": 2,
+        "fields": {
+            "box_size": 2
+        }
+    },
+    {
+        "model": "administration.box",
+        "pk": 3,
+        "fields": {
+            "box_size": 2
+        }
+    },
+    {
+        "model": "administration.box",
+        "pk": 4,
+        "fields": {
+            "box_size": 1
+        }
+    },
+    {
+        "model": "administration.box",
+        "pk": 5,
+        "fields": {
+            "box_size": 2
+        }
+    },
+    {
+        "model": "administration.unavailability",
+        "pk": 1,
+        "fields": {
+            "start_date": "2021-08-11",
+            "end_date": "2021-08-15",
+            "box": 5
+        }
+    },
+    {
+        "model": "administration.unavailability",
+        "pk": 2,
+        "fields": {
+            "start_date": "2021-08-26",
+            "end_date": "2021-08-28",
+            "box": 2
+        }
+    },
+    {
+        "model": "administration.booking",
+        "pk": 1,
+        "fields": {
+            "start_date": "2021-08-20",
+            "end_date": "2021-08-23",
+            "status": "OK",
+            "user": 1,
+            "dog": 8,
+            "box": 2,
+            "booking_size": 2
+        }
+    },
+    {
+        "model": "administration.booking",
+        "pk": 2,
+        "fields": {
+            "start_date": "2021-08-20",
+            "end_date": "2021-08-23",
+            "status": "OK",
+            "user": 1,
+            "dog": 9,
+            "box": 1,
+            "booking_size": 1
+        }
+    },
+    {
+        "model": "administration.booking",
+        "pk": 3,
+        "fields": {
+            "start_date": "2021-08-19",
+            "end_date": "2021-08-21",
+            "status": "OK",
+            "user": 1,
+            "dog": 10,
+            "box": 3,
+            "booking_size": 2
+        }
+    },
+    {
+        "model": "administration.booking",
+        "pk": 6,
+        "fields": {
+            "start_date": "2021-08-15",
+            "end_date": "2021-08-16",
+            "status": "OK",
+            "user": 1,
+            "dog": 11,
+            "box": 1,
+            "booking_size": 1
+        }
+    },
+    {
+        "model": "administration.booking",
+        "pk": 7,
+        "fields": {
+            "start_date": "2021-08-15",
+            "end_date": "2021-08-16",
+            "status": "OK",
+            "user": 2,
+            "dog": 14,
+            "box": 4,
+            "booking_size": 1
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$bzcXjiDkweqZ4USaxnkKwL$H5cHeEip2gnnwBIeMkFfAcThPUXmtYGtAwcdaXSj2t0=",
+            "last_login": "2021-08-12T14:46:38.342Z",
+            "is_superuser": false,
+            "username": "mat",
+            "first_name": "mat",
+            "last_name": "mat",
+            "email": "mat@test.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2021-08-04T15:06:22.822Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$k98eF0XDQ4oxkgYaOwXv5Q$1u7Ffm6/oEh5Ke1eB+/1RwsDnPZib4SIEAOCF+D27mE=",
+            "last_login": "2021-08-19T08:07:30.032Z",
+            "is_superuser": false,
+            "username": "mat2",
+            "first_name": "mat2",
+            "last_name": "mat2",
+            "email": "mat2@test.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2021-08-04T15:17:28.095Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$y2EN3SnzhjFV4W8bSNtuqk$OiWovUtDkAodrk4e6npXJqSQzbF5U8NGemViiRFDtVk=",
+            "last_login": "2021-08-19T07:58:04.494Z",
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@ochenil.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-08-12T12:35:28.627Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "authentication.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$DT1Pon7TESg0clU5CyXFBF$VrxXVyT9/93mV1L/gXHXYbSRzI0O3qB4IF8nesltfvU=",
+            "last_login": "2021-08-19T07:50:04.396Z",
+            "is_superuser": false,
+            "username": "Pierre",
+            "first_name": "Pierre",
+            "last_name": "",
+            "email": "Pierre@1234.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2021-08-19T07:50:03.997Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]
