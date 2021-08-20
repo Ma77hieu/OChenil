@@ -1,5 +1,6 @@
 from administration.models import Dog, Booking, Box, Unavailability, Size
 from authentication.models import User
+import datetime
 from customer.forms import DogForm, BookingForm
 from generic.constants import (DOG_ADDED,
                                FAIL_DOG_ADDED,
@@ -69,8 +70,16 @@ class Services():
                 message = ''
                 html_page = "booking.html"
             elif request.method == "POST":
-                s_date = request.POST['start_date']
-                e_date = request.POST['end_date']
+                s_date_year = int(request.POST['start_date_year'])
+                s_date_month = int(request.POST['start_date_month'])
+                s_date_day = int(request.POST['start_date_day'])
+                s_date = datetime.datetime(
+                    s_date_year, s_date_month, s_date_day)
+                e_date_year = int(request.POST['end_date_year'])
+                e_date_month = int(request.POST['end_date_month'])
+                e_date_day = int(request.POST['end_date_day'])
+                e_date = datetime.datetime(
+                    e_date_year, e_date_month, e_date_day)
                 selected_dog_id = request.POST['dog_name']
                 selected_dog = Dog.objects.get(
                     pk=selected_dog_id)

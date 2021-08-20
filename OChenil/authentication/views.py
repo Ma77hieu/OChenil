@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth import logout
 from generic.constants import LOG_OUT_OK
+from administration.views import management
 # from administration.views import management
 from .services import signup_service, signin_service
 
@@ -16,9 +17,10 @@ def signup(request):
 def signin(request):
     """view managing user log-in to the website"""
     html_page = signin_service(request)[0]
-    if request.user.is_superuser:
-        html_page = "management.html"
     context = signin_service(request)[1]
+    if request.user.is_superuser:
+        response = management(request)
+        return response
     return render(request, html_page, context)
 
 

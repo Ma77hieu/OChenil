@@ -2,8 +2,7 @@ from administration.models import Dog, Booking, Box, Unavailability, Size
 from administration.forms import AllBookingsForm, AllBoxForm
 from authentication.models import User
 from customer.forms import DogForm, BookingForm
-from datetime import date
-from datetime import timedelta
+from datetime import date, timedelta, datetime
 from generic.constants import (NBR_DAYS_CAPACITY)
 from django.urls import resolve
 from generic.custom_logging import custom_log
@@ -86,12 +85,21 @@ class Services():
             # custom_log("required_action", required_action)
             if required_action == "unavailability":
                 id_box_unavailable = request.POST['id_box']
-                unavailability_start = request.POST['start']
-                unavailability_end = request.POST['end']
+                s_date_year = int(request.POST['start_year'])
+                s_date_month = int(request.POST['start_month'])
+                s_date_day = int(request.POST['start_day'])
+                unavailability_start = datetime(
+                    s_date_year, s_date_month, s_date_day)
+                e_date_year = int(request.POST['end_year'])
+                e_date_month = int(request.POST['end_month'])
+                e_date_day = int(request.POST['end_day'])
+                unavailability_end = datetime(
+                    e_date_year, e_date_month, e_date_day)
                 box_unavailable = Box.objects.get(pk=id_box_unavailable)
                 unavailable = Unavailability(start_date=unavailability_start,
                                              end_date=unavailability_end,
                                              box=box_unavailable)
                 unavailable.save()
+                unavailable.refresh_from_db()
         box_list_form = AllBoxForm()
         return box_list_form
