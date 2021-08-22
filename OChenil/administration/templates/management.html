@@ -6,7 +6,7 @@
 {% load static %}
 <p class="my-3"><br></p>
 {% if user_feedback %}
-<div class="alert alert-success w-100 mt-5" role="alert">
+<div class="alert alert-{{message_type}} w-100 mt-5" role="alert">
     <p> {{user_feedback}}</p>
 </div>
 {%endif%}
@@ -55,11 +55,13 @@
                 <form class="py-2" method="POST" action="{% url 'management'%}">
                     {% csrf_token %}
                     <input type="hidden" name="required_action" value="cancel_booking">
-                    <label for="id_to_be_canceled" class="form-label">Id de la réservation</label>
+                    <label for="id_to_be_canceled" class="form-label">Id de la réservation (réservation en cours ou
+                        future)</label>
                     <p aria-label="liste des ids de reservation">{{ booking_list_form.id_to_be_canceled}}</p>
                     <div class="row">
                         <div class="col-12 my-2">
-                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
+                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id
+                                id="cancel_booking_btn">
                                 <a class="text-white">Annuler</a>
                             </button>
                         </div>
@@ -83,7 +85,8 @@
                     <p aria-label="date fin indisponibilité">{{ box_list_form.end}}</p>
                     <div class="row">
                         <div class="col-12 my-2">
-                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id>
+                            <button class="btn bg-primary my-sm-0 " type="submit" id_user=form.id
+                                id="unavailability_btn">
                                 <a class="text-white">Déclarer indispo</a>
                             </button>
                         </div>

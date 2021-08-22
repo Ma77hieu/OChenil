@@ -316,6 +316,19 @@
         }
     },
     {
+        "model": "administration.booking",
+        "pk": 8,
+        "fields": {
+            "start_date": "2030-08-15",
+            "end_date": "2030-08-16",
+            "status": "OK",
+            "user": 2,
+            "dog": 14,
+            "box": 4,
+            "booking_size": 1
+        }
+    },
+    {
         "model": "authentication.user",
         "pk": 1,
         "fields": {

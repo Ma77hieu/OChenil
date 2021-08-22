@@ -37,5 +37,12 @@ BOOKING_NOT_DELETED = "La réservation n'a pas pu être supprimée"
 # ADMIN user feedback:  booking not deleted
 BOOKING_DELETION_OK = 'La réservation a bien été supprimée'
 
+# ADMIN user feedback:  impossible to delcare unavailability
+IMPOSSIBLE_UNAVAILABILITY = ('Le box choisi est réservé pour ces dates,'
+                             ' impossible de le déclarer comme indisponible')
+
+# ADMIN user feedback:  impossible to delcare unavailability
+UNAVAILABILITY_OK = ("L'indisponibilité du box choisi a été enregistrée")
+
 # SETTING for bookings list in admin view:how many days displayed
 NBR_DAYS_CAPACITY = 20
