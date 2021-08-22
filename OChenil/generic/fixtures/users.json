@@ -187,6 +187,17 @@
         }
     },
     {
+        "model": "administration.dog",
+        "pk": 17,
+        "fields": {
+            "dog_name": "Rumba",
+            "dog_age": 6,
+            "dogsize": 1,
+            "dog_race": "Pincher",
+            "owner": 4
+        }
+    },
+    {
         "model": "administration.box",
         "pk": 1,
         "fields": {

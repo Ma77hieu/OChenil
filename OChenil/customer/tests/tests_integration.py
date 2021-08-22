@@ -7,7 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
-from generic.constants import WAIT_TIME
+from generic.constants import WAIT_TIME, NO_AVAILABILITY
 from generic.custom_logging import custom_log
 import time
 
@@ -60,8 +60,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
             dog_added = True
         assert dog_added is True
 
-    def test_add_booking(self):
-        """test the add dog function"""
+    def test_add_booking_ok(self):
+        """test the add booking function and there is available room"""
         self.login('regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
@@ -90,63 +90,37 @@ class MySeleniumTests(StaticLiveServerTestCase):
             booking_added = True
         assert booking_added is True
 
-    # def test_login_regular_user(self):
-    #     """test the regular user login function with good credentials"""
-    #     self.login('regular_user')
-    #     logout_button = self.selenium.find_element_by_name('logout')
-    #     login = False
-    #     if logout_button:
-    #         login = True
-    #     assert login is True
-
-    # def test_login_admin(self):
-    #     """test the admin user login function with good credentials"""
-    #     self.login('admin')
-    #     login = False
-    #     custom_log('self.selenium.current_url', self.selenium.current_url)
-    #     if "Toutes les réservations" in self.selenium.page_source:
-    #         login = True
-    #     assert login is True
-
-    # def test_signup(self):
-    #     """test the user signup function with good credentials"""
-    #     timeout = 5
-    #     self.selenium.get('{}'.format(self.live_server_url + '/signin'))
-    #     match_label_const = {"username": 'SIGNUP_USERNAME',
-    #                          "password": "SIGNUP_PWD",
-    #                          "email": "SIGNUP_EMAIL",
-    #                          "first_name": "SIGNUP_FIRSTNAME"}
-    #     for elem in match_label_const:
-    #         if elem in ["username", "password"]:
-    #             pos = 1
-    #         else:
-    #             pos = 0
-    #         signup_input = self.selenium.find_elements_by_name(elem)[pos]
-    #         signup_input.send_keys(config(match_label_const[elem]))
-    #     signup_input.send_keys(Keys.RETURN)
-    #     WebDriverWait(self.selenium, timeout).until(
-    #         lambda driver: driver.find_element_by_tag_name('body'))
-    #     signup = False
-    #     time.sleep(WAIT_TIME)
-    #     SIGNUP_OK = "Félicitations vous êtes désormais inscrit."
-    #     if SIGNUP_OK in self.selenium.page_source:
-    #         signup = True
-    #     assert signup is True
-
-    # def test_logout(self):
-    #     """test the logout function"""
-    #     self.login('regular_user')
-    #     self.selenium.get('{}'.format(self.live_server_url + '/home'))
-    #     timeout = 2
-    #     logout_button = self.selenium.find_element_by_name('logout')
-    #     logout_button.click()
-    #     WebDriverWait(self.selenium, timeout).until(
-    #         lambda driver: driver.find_element_by_tag_name('body'))
-    #     logout = False
-    #     time.sleep(WAIT_TIME)
-    #     if LOG_OUT_OK in self.selenium.page_source:
-    #         logout = True
-    #     assert logout is True
+    def test_add_booking_not_ok(self):
+        """test the add dog function"""
+        self.login('regular_user')
+        booking_btn = self.selenium.find_element_by_id(
+            "menu_booking_link_usr")
+        booking_btn.click()
+        self.ensure_change_page()
+        dog_name_field = Select(
+            self.selenium.find_element_by_id('id_dog_name'))
+        dog_name_field.select_by_index(1)
+        field_value_match = [
+            ('id_start_date_month', 7),
+            ('id_start_date_day', 14),
+            ('id_start_date_year', 0),
+            ('id_end_date_month', 7),
+            ('id_end_date_day', 17),
+            ('id_end_date_year', 0)
+        ]
+        for field in field_value_match:
+            dog_size_field = Select(self.selenium.find_element_by_id(field[0]))
+            dog_size_field.select_by_index(field[1])
+        booking_btn_in_page = self.selenium.find_element_by_id(
+            "booking_btn_in_page")
+        booking_btn_in_page.click()
+        self.ensure_change_page()
+        booking_added = True
+        if (NO_AVAILABILITY in self.selenium.page_source) and (
+            "Aug. 16, 2021" not in self.selenium.page_source
+        ):
+            booking_added = False
+        assert booking_added is False
 
     def ensure_change_page(self):
         timeout = 2

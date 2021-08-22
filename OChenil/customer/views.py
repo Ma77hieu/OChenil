@@ -21,15 +21,13 @@ def book_dates(request):
     dogs = Services().list_dogs(request)
     bookings = Services().list_bookings(request)
     availability = Services().make_booking(request)
-    user_feedback = availability[1]
     new_booking = availability[0]
+    user_feedback = availability[1]
+    message_type = availability[2]
     context = (
-        {'dogs': dogs, 'bookings': bookings, 'form': new_booking, 'user_feedback': user_feedback})
+        {'dogs': dogs,
+         'bookings': bookings,
+         'form': new_booking,
+         'user_feedback': user_feedback,
+         'message_type': message_type})
     return render(request, 'booking.html', context)
-
-
-# def box_choice(request):
-#     available_box = Services().box_choice(request)
-#     context = (
-#         {'user_feedback': available_box})
-#     return render(request, 'user.html', context)

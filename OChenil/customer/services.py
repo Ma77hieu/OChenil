@@ -68,6 +68,7 @@ class Services():
             d_owner = User.objects.get(pk=request.user.id)
             if request.method == "GET":
                 message = ''
+                message_type = "success"
                 html_page = "booking.html"
             elif request.method == "POST":
                 s_date_year = int(request.POST['start_date_year'])
@@ -85,15 +86,17 @@ class Services():
                     pk=selected_dog_id)
                 availability = self.search_availability(
                     selected_dog, s_date, e_date)
-                if availability:
+                if availability is not False:
                     self.create_booking(
                         selected_dog, d_owner, s_date, e_date, availability)
                     message = BOOKING_OK
+                    message_type = "success"
                 else:
                     message = NO_AVAILABILITY
+                    message_type = "warning"
                     html_page = "booking.html"
             booking_form = BookingForm(request=request)
-        return (booking_form, message)
+        return (booking_form, message, message_type)
 
     def create_booking(self, selected_dog, owner, entry_date, exit_date, box_id):
         """create anew instance of Booking model"""
