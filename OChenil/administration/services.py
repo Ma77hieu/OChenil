@@ -66,7 +66,7 @@ class Services():
         return daily_capacity
 
     def action_if_POST(self, request):
-        """call the required functions if admin user requested to cancel a
+        """call the required functions if admin user request to cancel a
         booking or declare an unavailability"""
         message = ''
         message_type = 'success'
@@ -74,17 +74,17 @@ class Services():
         box_list_form = AllBoxForm()
         if request.method == "POST":
             required_action = request.POST.get('required_action')
+            custom_log("required_action", required_action)
             # custom_log("required_action", required_action)
             if required_action == "cancel_booking":
                 cancel = self.cancel_booking(request)
-                booking_list_form = cancel[0]
-                message = cancel[1]
-                message_type = cancel[2]
+                message = cancel[0]
+                message_type = cancel[1]
             if required_action == "unavailability":
                 unavailability = self.create_unavailability(request)
-                box_list_form = unavailability[0]
-                message = unavailability[1]
-                message_type = unavailability[2]
+                message = unavailability[0]
+                custom_log("message unavailability", message)
+                message_type = unavailability[1]
         return booking_list_form, box_list_form, message, message_type
 
     def cancel_booking(self, request):
@@ -92,63 +92,49 @@ class Services():
 
         Returns:
         booking objects (all bookings)"""
-        message = ''
-        message_type = 'success'
-        if request.method == "POST":
-            required_action = request.POST.get('required_action')
-            # custom_log("required_action", required_action)
-            if required_action == "cancel_booking":
-                id_to_be_canceled = request.POST['id_to_be_canceled']
-                booking_to_be_canceled = Booking.objects.get(
-                    pk=id_to_be_canceled)
-                booking_to_be_canceled.delete()
-                ids_remaining_bookings = Booking.objects.all().values_list('id', flat=True)
-                custom_log("ids_remaining_bookings", ids_remaining_bookings)
-                if id_to_be_canceled in ids_remaining_bookings:
-                    message = BOOKING_NOT_DELETED
-                    message_type = 'warning'
-                elif id_to_be_canceled not in ids_remaining_bookings:
-                    message = BOOKING_DELETION_OK
-                    message_type = 'success'
-        booking_list_form = AllBookingsForm()
-        return booking_list_form, message, message_type
+        id_to_be_canceled = request.POST['id_to_be_canceled']
+        booking_to_be_canceled = Booking.objects.get(
+            pk=id_to_be_canceled)
+        booking_to_be_canceled.delete()
+        ids_remaining_bookings = Booking.objects.all().values_list('id', flat=True)
+        custom_log("ids_remaining_bookings", ids_remaining_bookings)
+        if id_to_be_canceled in ids_remaining_bookings:
+            message = BOOKING_NOT_DELETED
+            message_type = 'warning'
+        elif id_to_be_canceled not in ids_remaining_bookings:
+            message = BOOKING_DELETION_OK
+            message_type = 'success'
+        return message, message_type
 
     def create_unavailability(self, request):
         """Create an unavailability based on information entered 
         by an admin user in the managemenet.html page"""
-        message = ''
-        message_type = 'success'
-        if request.method == "POST":
-            required_action = request.POST.get('required_action')
-            # custom_log("required_action", required_action)
-            if required_action == "unavailability":
-                id_box_unavailable = request.POST['id_box']
-                s_date_year = int(request.POST['start_year'])
-                s_date_month = int(request.POST['start_month'])
-                s_date_day = int(request.POST['start_day'])
-                unavailability_start = datetime(
-                    s_date_year, s_date_month, s_date_day)
-                e_date_year = int(request.POST['end_year'])
-                e_date_month = int(request.POST['end_month'])
-                e_date_day = int(request.POST['end_day'])
-                unavailability_end = datetime(
-                    e_date_year, e_date_month, e_date_day)
-                box_unavailable = Box.objects.get(pk=id_box_unavailable)
-                check_if_booked = Booking.objects.filter(
-                    box=id_box_unavailable,
-                    start_date__lte=unavailability_end,
-                    end_date__gte=unavailability_start).first()
-                custom_log("check_if_booked", check_if_booked)
-                if check_if_booked:
-                    message = IMPOSSIBLE_UNAVAILABILITY
-                    message_type = 'warning'
-                else:
-                    unavailable = Unavailability(start_date=unavailability_start,
-                                                 end_date=unavailability_end,
-                                                 box=box_unavailable)
-                    unavailable.save()
-                    unavailable.refresh_from_db()
-                    message = UNAVAILABILITY_OK
-                    message_type = 'success'
-        box_list_form = AllBoxForm()
-        return box_list_form, message, message_type
+        id_box_unavailable = request.POST['id_box']
+        s_date_year = int(request.POST['start_year'])
+        s_date_month = int(request.POST['start_month'])
+        s_date_day = int(request.POST['start_day'])
+        unavailability_start = datetime(
+            s_date_year, s_date_month, s_date_day)
+        e_date_year = int(request.POST['end_year'])
+        e_date_month = int(request.POST['end_month'])
+        e_date_day = int(request.POST['end_day'])
+        unavailability_end = datetime(
+            e_date_year, e_date_month, e_date_day)
+        box_unavailable = Box.objects.get(pk=id_box_unavailable)
+        check_if_booked = Booking.objects.filter(
+            box=id_box_unavailable,
+            start_date__lte=unavailability_end,
+            end_date__gte=unavailability_start).first()
+        custom_log("check_if_booked", check_if_booked)
+        if check_if_booked:
+            message = IMPOSSIBLE_UNAVAILABILITY
+            message_type = 'warning'
+        else:
+            unavailable = Unavailability(start_date=unavailability_start,
+                                         end_date=unavailability_end,
+                                         box=box_unavailable)
+            unavailable.save()
+            unavailable.refresh_from_db()
+            message = UNAVAILABILITY_OK
+            message_type = 'success'
+        return message, message_type

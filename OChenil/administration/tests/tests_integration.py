@@ -6,7 +6,9 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from generic.constants import BOOKING_DELETION_OK
+from generic.constants import (BOOKING_DELETION_OK,
+                               UNAVAILABILITY_OK,
+                               IMPOSSIBLE_UNAVAILABILITY)
 from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
 import time
@@ -21,7 +23,9 @@ class MySeleniumTests(StaticLiveServerTestCase):
         is_travis = 'TRAVIS' in os.environ
         # detect if tests run locally or in server through travis
         if not is_travis:
-            cls.selenium = WebDriver()
+            specific_options = Options()
+            specific_options.add_argument("--start-maximized")
+            cls.selenium = WebDriver(options=specific_options)
         elif is_travis:
             specific_options = Options()
             specific_options.add_argument("--no-sandbox")
@@ -37,7 +41,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         super().tearDownClass()
 
     def test_cancel_booking(self):
-        """test the canncelation of a booking"""
+        """test the cancelation of a booking"""
         login(self, 'admin')
         booking_field = Select(
             self.selenium.find_element_by_id('id_id_to_be_canceled'))
@@ -51,51 +55,49 @@ class MySeleniumTests(StaticLiveServerTestCase):
             booking_canceled = True
         assert booking_canceled is True
 
-# def test_login_admin(self):
-#     """test the admin user login function with good credentials"""
-#     self.login('admin')
-#     login = False
-#     custom_log('self.selenium.current_url', self.selenium.current_url)
-#     if "Toutes les réservations" in self.selenium.page_source:
-#         login = True
-#     assert login is True
+    def test_declare_unavailability_ok(self):
+        """test the successfull declaration of an unavailability"""
+        dates = [
+            ('id_start_month', 2),
+            ('id_start_day', 11),
+            ('id_start_year', 0),
+            ('id_end_month', 2),
+            ('id_end_day', 12),
+            ('id_end_year', 0)
+        ]
+        self.declare_unavailability(dates)
+        unavailability_declared = False
+        if UNAVAILABILITY_OK in self.selenium.page_source:
+            unavailability_declared = True
+        assert unavailability_declared is True
 
-# def test_signup(self):
-#     """test the user signup function with good credentials"""
-#     timeout = 5
-#     self.selenium.get('{}'.format(self.live_server_url + '/signin'))
-#     match_label_const = {"username": 'SIGNUP_USERNAME',
-#                          "password": "SIGNUP_PWD",
-#                          "email": "SIGNUP_EMAIL",
-#                          "first_name": "SIGNUP_FIRSTNAME"}
-#     for elem in match_label_const:
-#         if elem in ["username", "password"]:
-#             pos = 1
-#         else:
-#             pos = 0
-#         signup_input = self.selenium.find_elements_by_name(elem)[pos]
-#         signup_input.send_keys(config(match_label_const[elem]))
-#     signup_input.send_keys(Keys.RETURN)
-#     WebDriverWait(self.selenium, timeout).until(
-#         lambda driver: driver.find_element_by_tag_name('body'))
-#     signup = False
-#     time.sleep(WAIT_TIME)
-#     SIGNUP_OK = "Félicitations vous êtes désormais inscrit."
-#     if SIGNUP_OK in self.selenium.page_source:
-#         signup = True
-#     assert signup is True
+    def test_declare_unavailability_not_ok(self):
+        """test the successfull declaration of an unavailability"""
+        dates = [
+            ('id_start_month', 7),
+            ('id_start_day', 20),
+            ('id_start_year', 0),
+            ('id_end_month', 7),
+            ('id_end_day', 21),
+            ('id_end_year', 0)
+        ]
+        self.declare_unavailability(dates)
+        unavailability_possible = True
+        if IMPOSSIBLE_UNAVAILABILITY in self.selenium.page_source:
+            unavailability_possible = False
+        assert unavailability_possible is False
 
-# def test_logout(self):
-#     """test the logout function"""
-#     self.login('regular_user')
-#     self.selenium.get('{}'.format(self.live_server_url + '/home'))
-#     timeout = 2
-#     logout_button = self.selenium.find_element_by_name('logout')
-#     logout_button.click()
-#     WebDriverWait(self.selenium, timeout).until(
-#         lambda driver: driver.find_element_by_tag_name('body'))
-#     logout = False
-#     time.sleep(WAIT_TIME)
-#     if LOG_OUT_OK in self.selenium.page_source:
-#         logout = True
-#     assert logout is True
+    def declare_unavailability(self, dates):
+        """used by both tests regarding unavailability declaration"""
+        login(self, 'admin')
+        box_select = Select(
+            self.selenium.find_element_by_id('id_id_box'))
+        box_select.select_by_index(0)
+        for field in dates:
+            dog_size_field = Select(self.selenium.find_element_by_id(field[0]))
+            dog_size_field.select_by_index(field[1])
+        unavailability_btn = self.selenium.find_element_by_id(
+            "unavailability_btn")
+        unavailability_btn.click()
+        ensure_change_page(self)
+        pass
