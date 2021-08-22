@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from generic.constants import WAIT_TIME, NO_AVAILABILITY
+from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
 import time
 
@@ -40,7 +41,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_add_dog(self):
         """test the add dog function"""
-        self.login('regular_user')
+        login(self, 'regular_user')
         field_value_match = [
             ('id_dog_name', 'DOG_NAME'),
             ('id_dog_age', 'DOG_AGE'),
@@ -54,7 +55,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         add_dog_btn = self.selenium.find_element_by_id(
             "add_dog_btn")
         add_dog_btn.click()
-        self.ensure_change_page()
+        ensure_change_page(self)
         dog_added = False
         if "test_race" in self.selenium.page_source:
             dog_added = True
@@ -62,11 +63,11 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_add_booking_ok(self):
         """test the add booking function and there is available room"""
-        self.login('regular_user')
+        login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
         booking_btn.click()
-        self.ensure_change_page()
+        ensure_change_page(self)
         dog_name_field = Select(
             self.selenium.find_element_by_id('id_dog_name'))
         dog_name_field.select_by_index(0)
@@ -84,7 +85,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         booking_btn_in_page = self.selenium.find_element_by_id(
             "booking_btn_in_page")
         booking_btn_in_page.click()
-        self.ensure_change_page()
+        ensure_change_page(self)
         booking_added = False
         if "Oct. 12, 2022" in self.selenium.page_source:
             booking_added = True
@@ -92,11 +93,11 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_add_booking_not_ok(self):
         """test the add dog function"""
-        self.login('regular_user')
+        login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
         booking_btn.click()
-        self.ensure_change_page()
+        ensure_change_page(self)
         dog_name_field = Select(
             self.selenium.find_element_by_id('id_dog_name'))
         dog_name_field.select_by_index(1)
@@ -114,39 +115,10 @@ class MySeleniumTests(StaticLiveServerTestCase):
         booking_btn_in_page = self.selenium.find_element_by_id(
             "booking_btn_in_page")
         booking_btn_in_page.click()
-        self.ensure_change_page()
+        ensure_change_page(self)
         booking_added = True
         if (NO_AVAILABILITY in self.selenium.page_source) and (
             "Aug. 16, 2021" not in self.selenium.page_source
         ):
             booking_added = False
         assert booking_added is False
-
-    def ensure_change_page(self):
-        timeout = 2
-        WebDriverWait(self.selenium, timeout).until(
-            lambda driver: driver.find_element_by_tag_name('body'))
-        time.sleep(WAIT_TIME)
-
-    def login(self, role):
-        """login function used by other tests
-
-        Parameters:
-        role (can be regular_user or admin based on user type)
-        """
-        timeout = 2
-        if role == "regular_user":
-            USER = config('USER_LOGIN')
-            PWD = config('USER_PWD')
-        elif role == "admin":
-            USER = config('ADMIN_USER_LOGIN')
-            PWD = config('ADMIN_USER_PWD')
-        self.selenium.get('{}'.format(self.live_server_url + '/signin'))
-        username_input = self.selenium.find_elements_by_name("username")[0]
-        username_input.send_keys(USER)
-        password_input = self.selenium.find_elements_by_name("password")[0]
-        password_input.send_keys(PWD)
-        password_input.send_keys(Keys.RETURN)
-        WebDriverWait(self.selenium, timeout).until(
-            lambda driver: driver.find_element_by_tag_name('body'))
-        time.sleep(WAIT_TIME)

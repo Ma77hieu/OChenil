@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 from generic.constants import LOG_IN_OK, LOG_OUT_OK, WAIT_TIME
+from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
 import time
 
@@ -37,21 +38,21 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_login_regular_user(self):
         """test the regular user login function with good credentials"""
-        self.login('regular_user')
+        login(self, 'regular_user')
         logout_button = self.selenium.find_element_by_name('logout')
-        login = False
+        login_check = False
         if logout_button:
-            login = True
-        assert login is True
+            login_check = True
+        assert login_check is True
 
     def test_login_admin(self):
         """test the admin user login function with good credentials"""
-        self.login('admin')
-        login = False
+        login(self, 'admin')
+        login_check = False
         custom_log('self.selenium.current_url', self.selenium.current_url)
         if "Toutes les réservations" in self.selenium.page_source:
-            login = True
-        assert login is True
+            login_check = True
+        assert login_check is True
 
     def test_signup(self):
         """test the user signup function with good credentials"""
@@ -69,10 +70,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
             signup_input = self.selenium.find_elements_by_name(elem)[pos]
             signup_input.send_keys(config(match_label_const[elem]))
         signup_input.send_keys(Keys.RETURN)
-        WebDriverWait(self.selenium, timeout).until(
-            lambda driver: driver.find_element_by_tag_name('body'))
+        ensure_change_page(self)
         signup = False
-        time.sleep(WAIT_TIME)
         SIGNUP_OK = "Félicitations vous êtes désormais inscrit."
         if SIGNUP_OK in self.selenium.page_source:
             signup = True
@@ -80,38 +79,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_logout(self):
         """test the logout function"""
-        self.login('regular_user')
+        login(self, 'regular_user')
         self.selenium.get('{}'.format(self.live_server_url + '/home'))
         timeout = 2
         logout_button = self.selenium.find_element_by_name('logout')
         logout_button.click()
-        WebDriverWait(self.selenium, timeout).until(
-            lambda driver: driver.find_element_by_tag_name('body'))
+        ensure_change_page(self)
         logout = False
-        time.sleep(WAIT_TIME)
         if LOG_OUT_OK in self.selenium.page_source:
             logout = True
         assert logout is True
-
-    def login(self, role):
-        """login function used by other tests
-
-        Parameters:
-        role (can be regular_user or admin based on user type)
-        """
-        timeout = 2
-        if role == "regular_user":
-            USER = config('USER_LOGIN')
-            PWD = config('USER_PWD')
-        elif role == "admin":
-            USER = config('ADMIN_USER_LOGIN')
-            PWD = config('ADMIN_USER_PWD')
-        self.selenium.get('{}'.format(self.live_server_url + '/signin'))
-        username_input = self.selenium.find_elements_by_name("username")[0]
-        username_input.send_keys(USER)
-        password_input = self.selenium.find_elements_by_name("password")[0]
-        password_input.send_keys(PWD)
-        password_input.send_keys(Keys.RETURN)
-        WebDriverWait(self.selenium, timeout).until(
-            lambda driver: driver.find_element_by_tag_name('body'))
-        time.sleep(WAIT_TIME)
