@@ -13,7 +13,7 @@ import time
 
 
 class MySeleniumTests(StaticLiveServerTestCase):
-    fixtures = ['users.json']
+    fixtures = ['fixture_db.json']
 
     @classmethod
     def setUpClass(cls):
