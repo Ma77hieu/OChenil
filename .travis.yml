@@ -10,6 +10,7 @@ before-install:
 - sudo mv -f ~/chromedriver /usr/local/share/
 - sudo chmod +x /usr/local/share/chromedriver
 - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+- chmod +x build.sh
 addons:
   chrome: stable
 before_script:
