@@ -73,7 +73,6 @@ class Services():
         box_list_form = AllBoxForm()
         if request.method == "POST":
             required_action = request.POST.get('required_action')
-            custom_log("required_action", required_action)
             # custom_log("required_action", required_action)
             if required_action == "cancel_booking":
                 cancel = self.cancel_booking(request)
@@ -82,7 +81,7 @@ class Services():
             if required_action == "unavailability":
                 unavailability = self.create_unavailability(request)
                 message = unavailability[0]
-                custom_log("message unavailability", message)
+                # custom_log("message unavailability", message)
                 message_type = unavailability[1]
         return booking_list_form, box_list_form, message, message_type
 
@@ -96,7 +95,7 @@ class Services():
             pk=id_to_be_canceled)
         booking_to_be_canceled.delete()
         ids_remaining_bookings = Booking.objects.all().values_list('id', flat=True)
-        custom_log("ids_remaining_bookings", ids_remaining_bookings)
+        # custom_log("ids_remaining_bookings", ids_remaining_bookings)
         if id_to_be_canceled in ids_remaining_bookings:
             message = BOOKING_NOT_DELETED
             message_type = 'warning'
@@ -124,7 +123,7 @@ class Services():
             box=id_box_unavailable,
             start_date__lte=unavailability_end,
             end_date__gte=unavailability_start).first()
-        custom_log("check_if_booked", check_if_booked)
+        # custom_log("check_if_booked", check_if_booked)
         if check_if_booked:
             message = IMPOSSIBLE_UNAVAILABILITY
             message_type = 'warning'

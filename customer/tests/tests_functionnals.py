@@ -117,6 +117,10 @@ class MySeleniumTests(StaticLiveServerTestCase):
         booking_btn_in_page.send_keys(Keys.RETURN)
         ensure_change_page(self)
         booking_added = True
+        custom_log("NO_AVAILABILITY in self.selenium.page_source",
+                   (NO_AVAILABILITY in self.selenium.page_source))
+        custom_log("Aug. 16, 2021 not in self.selenium.page_source",
+                   ("Aug. 16, 2021" not in self.selenium.page_source))
         if (NO_AVAILABILITY in self.selenium.page_source) and (
             "Aug. 16, 2021" not in self.selenium.page_source
         ):
