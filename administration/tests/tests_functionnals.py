@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 from generic.constants import (BOOKING_DELETION_OK,
                                UNAVAILABILITY_OK,
                                IMPOSSIBLE_UNAVAILABILITY)
@@ -100,6 +99,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
             dog_size_field.select_by_index(field[1])
         unavailability_btn = self.selenium.find_element_by_id(
             "unavailability_btn")
-        unavailability_btn.click()
+        unavailability_btn.send_keys(Keys.RETURN)
         ensure_change_page(self)
         pass

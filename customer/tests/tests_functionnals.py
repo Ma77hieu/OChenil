@@ -1,13 +1,11 @@
-
 from decouple import config
 import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
-from generic.constants import WAIT_TIME, NO_AVAILABILITY
+from generic.constants import NO_AVAILABILITY
 from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
 import time
@@ -54,7 +52,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         dog_size_field.select_by_index(1)
         add_dog_btn = self.selenium.find_element_by_id(
             "add_dog_btn")
-        add_dog_btn.click()
+        add_dog_btn.send_keys(Keys.RETURN)
         ensure_change_page(self)
         dog_added = False
         if "test_race" in self.selenium.page_source:
@@ -66,7 +64,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
-        booking_btn.click()
+        booking_btn.send_keys(Keys.RETURN)
         ensure_change_page(self)
         dog_name_field = Select(
             self.selenium.find_element_by_id('id_dog_name'))
@@ -84,7 +82,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             dog_size_field.select_by_index(field[1])
         booking_btn_in_page = self.selenium.find_element_by_id(
             "booking_btn_in_page")
-        booking_btn_in_page.click()
+        booking_btn_in_page.send_keys(Keys.RETURN)
         ensure_change_page(self)
         booking_added = False
         if "Oct. 12, 2022" in self.selenium.page_source:
@@ -96,7 +94,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
-        booking_btn.click()
+        booking_btn.send_keys(Keys.RETURN)
         ensure_change_page(self)
         dog_name_field = Select(
             self.selenium.find_element_by_id('id_dog_name'))
@@ -114,7 +112,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             dog_size_field.select_by_index(field[1])
         booking_btn_in_page = self.selenium.find_element_by_id(
             "booking_btn_in_page")
-        booking_btn_in_page.click()
+        booking_btn_in_page.send_keys(Keys.RETURN)
         ensure_change_page(self)
         booking_added = True
         if (NO_AVAILABILITY in self.selenium.page_source) and (
