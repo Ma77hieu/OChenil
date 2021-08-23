@@ -29,6 +29,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             cls.selenium = WebDriver(options=specific_options)
         elif is_travis:
             specific_options = Options()
+            specific_options.add_argument("--start-maximized")
             specific_options.add_argument("--no-sandbox")
             specific_options.add_argument("--headless")
             specific_options.add_argument("--disable-dev-shm-usage")
@@ -44,7 +45,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_cancel_booking(self):
         """test the cancelation of a booking"""
         login(self, 'admin')
-        ensure_change_page(self)
+        ensure_change_page()
         booking_field = Select(
             self.selenium.find_element_by_id('id_id_to_be_canceled'))
         booking_field.select_by_index(0)
