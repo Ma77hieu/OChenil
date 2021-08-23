@@ -62,7 +62,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         assert dog_added is True
 
     def test_add_booking_ok(self):
-        """test the add booking function and there is available room"""
+        """test the add booking function when there is available room"""
         login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
@@ -92,7 +92,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         assert booking_added is True
 
     def test_add_booking_not_ok(self):
-        """test the add dog function"""
+        """test the add booking function when there is no available room"""
         login(self, 'regular_user')
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")

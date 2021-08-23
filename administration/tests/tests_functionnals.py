@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.action_chains import ActionChains
 from generic.constants import (BOOKING_DELETION_OK,
                                UNAVAILABILITY_OK,
                                IMPOSSIBLE_UNAVAILABILITY)
@@ -48,6 +49,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
         booking_field.select_by_index(0)
         cancel_booking_btn = self.selenium.find_element_by_id(
             "cancel_booking_btn")
+        actions = ActionChains(self.selenium)
+        actions.move_to_element(cancel_booking_btn).perform()
         cancel_booking_btn.click()
         ensure_change_page(self)
         booking_canceled = False
@@ -72,7 +75,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         assert unavailability_declared is True
 
     def test_declare_unavailability_not_ok(self):
-        """test the successfull declaration of an unavailability"""
+        """test the unsuccessfull declaration of an unavailability"""
         dates = [
             ('id_start_month', 7),
             ('id_start_day', 20),
