@@ -62,6 +62,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_ok(self):
         """test the add booking function when there is available room"""
         login(self, 'regular_user')
+        self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
         booking_btn.send_keys(Keys.RETURN)
@@ -92,6 +93,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_not_ok(self):
         """test the add booking function when there is no available room"""
         login(self, 'regular_user')
+        self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
         booking_btn.send_keys(Keys.RETURN)
@@ -120,3 +122,13 @@ class MySeleniumTests(StaticLiveServerTestCase):
         ):
             booking_added = False
         assert booking_added is False
+
+    def check_navbar_collapsed(self):
+        """check foor the presence of the collapsed navbar menu button,
+        click on the button to deploy the navbar if it was collapsed"""
+        collapsed_navbar_button = (
+            self.selenium.find_element_by_class_name(
+                "fa-bars"))
+        is_navbar_collapsed = collapsed_navbar_button.is_displayed()
+        if is_navbar_collapsed:
+            collapsed_navbar_button.send_keys(Keys.RETURN)
