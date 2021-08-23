@@ -1,0 +1,7 @@
+[run]
+source=.
+omit=*./OChenil_env/*,*sgi*,*__pycache__*,*migrations*
+
+[report]
+omit=*./OChenil_env/*,*sgi*,*__pycache__*,*migrations*
+fail_under=85
