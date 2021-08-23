@@ -131,4 +131,4 @@ class MySeleniumTests(StaticLiveServerTestCase):
                 "fa-bars"))
         is_navbar_collapsed = collapsed_navbar_button.is_displayed()
         if is_navbar_collapsed:
-            collapsed_navbar_button.send_keys(Keys.RETURN)
+            collapsed_navbar_button.click()
