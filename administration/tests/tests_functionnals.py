@@ -44,13 +44,12 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_cancel_booking(self):
         """test the cancelation of a booking"""
         login(self, 'admin')
+        ensure_change_page()
         booking_field = Select(
             self.selenium.find_element_by_id('id_id_to_be_canceled'))
         booking_field.select_by_index(0)
         cancel_booking_btn = self.selenium.find_element_by_id(
             "cancel_booking_btn")
-        actions = ActionChains(self.selenium)
-        actions.move_to_element(cancel_booking_btn).perform()
         cancel_booking_btn.click()
         ensure_change_page(self)
         booking_canceled = False
