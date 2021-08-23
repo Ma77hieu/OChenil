@@ -18,8 +18,7 @@ class Services():
 
     def list_bookings(self):
         """returns all the bookings from all users"""
-        bookings = Booking.objects.all()
-        return bookings
+        return Booking.objects.all()
 
     def daily_capacity(self):
         """calculates the total amount of boxes, the daily nbr of bookings
