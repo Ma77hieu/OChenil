@@ -1,3 +1,4 @@
+from generic.custom_logging import custom_log
 from administration.models import Dog, Booking, Box, Unavailability, Size
 from authentication.models import User
 import datetime
