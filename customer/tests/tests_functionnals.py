@@ -105,7 +105,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
             ('id_start_date_day', 14),
             ('id_start_date_year', 0),
             ('id_end_date_month', 7),
-            ('id_end_date_day', 17),
+            ('id_end_date_day', 15),
             ('id_end_date_year', 0)
         ]
         for field in field_value_match:

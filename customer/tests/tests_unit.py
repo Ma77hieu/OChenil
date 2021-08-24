@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from authentication.models import User
 from generic.constants import DOG_ADDED, BOOKING_OK, NO_AVAILABILITY
 from django.test import TestCase
+from generic.custom_logging import custom_log
 
 
 class UnitTest(TestCase):
@@ -30,7 +31,9 @@ class UnitTest(TestCase):
         request.user = test_user
         dogs = Services().list_dogs(request)
         dogs_id = list(dogs.values_list('id', flat=True))
+        custom_log("dogs_id", dogs_id)
         dogs_id_from_fixture = [8, 9, 10, 11]
+        custom_log("dogs_id_from_fixture", dogs_id_from_fixture)
         assert dogs_id == dogs_id_from_fixture
 
     def test_list_bookings(self):
