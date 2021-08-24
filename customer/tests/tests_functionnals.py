@@ -91,7 +91,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         assert booking_added is True
 
     def test_add_booking_not_ok(self):
-        """test the add booking function when there is no available room"""
+        """test the add booking function when there is no available box"""
         login(self, 'regular_user')
         self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
