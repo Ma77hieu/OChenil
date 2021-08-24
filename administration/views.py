@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from administration.services import Services
-from generic.custom_logging import custom_log
 
 
 # Create your views here.

@@ -2,7 +2,6 @@ from django import forms
 from django.forms.widgets import SelectDateWidget
 from administration.models import Booking, Box
 from datetime import date
-from generic.custom_logging import custom_log
 
 
 class AllBookingsForm(forms.Form):

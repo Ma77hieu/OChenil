@@ -1,8 +1,7 @@
 from administration.services import Services
 from django.http import HttpRequest
-from administration.models import Booking, Unavailability
+from administration.models import Booking
 from generic.constants import BOOKING_DELETION_OK, UNAVAILABILITY_OK
-from generic.custom_logging import custom_log
 from django.test import TestCase
 
 

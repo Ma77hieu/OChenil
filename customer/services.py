@@ -1,15 +1,12 @@
-from generic.custom_logging import custom_log
 from administration.models import Dog, Booking, Box, Unavailability, Size
 from authentication.models import User
 import datetime
 from customer.forms import DogForm, BookingForm
 from generic.constants import (DOG_ADDED,
-                               FAIL_DOG_ADDED,
                                NEED_LOGIN,
                                NO_AVAILABILITY,
                                BOOKING_OK)
 from django.urls import resolve
-import logging
 
 
 class Services():
@@ -61,16 +58,15 @@ class Services():
         return bookings
 
     def make_booking(self, request):
-        """create a new booking entry in the database after checking for availability"""
+        """create a new booking entry in the
+         database after checking for availability"""
         if not request.user.id:
             message = NEED_LOGIN
-            html_page = "signin.html"
         else:
             d_owner = User.objects.get(pk=request.user.id)
             if request.method == "GET":
                 message = ''
                 message_type = "success"
-                html_page = "booking.html"
             elif request.method == "POST":
                 s_date_year = int(request.POST['start_date_year'])
                 s_date_month = int(request.POST['start_date_month'])
@@ -95,11 +91,15 @@ class Services():
                 else:
                     message = NO_AVAILABILITY
                     message_type = "warning"
-                    html_page = "booking.html"
             booking_form = BookingForm(request=request)
         return (booking_form, message, message_type)
 
-    def create_booking(self, selected_dog, owner, entry_date, exit_date, box_id):
+    def create_booking(self,
+                       selected_dog,
+                       owner,
+                       entry_date,
+                       exit_date,
+                       box_id):
         """create anew instance of Booking model"""
         new_booking = Booking(
             start_date=entry_date,
@@ -112,7 +112,8 @@ class Services():
         new_booking.save()
 
     def search_availability(self, dog, entry_date, exit_date):
-        """make sure there is a box with the right size at the requested dates"""
+        """make sure there is a box with
+         the right size at the requested dates"""
         size = dog.dogsize
         # get all boxes with right size
         good_size_boxes = Box.objects.filter(box_size=size)
@@ -125,26 +126,30 @@ class Services():
         )
         # booked_good_size_boxes = same_date_and_size_bookings.box.id
         # list of the id of all booked boxes
-        ids_booked_good_size_boxes = list(same_date_and_size_bookings.values_list(
-            'box', flat=True))
+        ids_booked_good_size_boxes = list(
+            same_date_and_size_bookings.values_list(
+                'box', flat=True)
+        )
         # get all unavailability with right size
         ids_unavailable_good_size_boxes = []
         if Unavailability.objects.all():
-            unavailability_good_size_boxes = Unavailability.objects.filter(
+            unavailability_gd_size_boxes = Unavailability.objects.filter(
                 box__in=good_size_boxes)
-            unavailable_good_size_boxes_id = unavailability_good_size_boxes.values_list(
+            unvble_gd_size_boxes_id = unavailability_gd_size_boxes.values_list(
                 'id', flat=True)
             # get all bookings with right size at those date + matching boxes
             same_date_and_size_unavailable = Unavailability.objects.filter(
-                pk__in=unavailable_good_size_boxes_id,
+                pk__in=unvble_gd_size_boxes_id,
                 start_date__lt=exit_date,
                 end_date__gt=entry_date
             )
             # unavailable_good_size_boxes = same_date_and_size_unavailable.box
             # list of the id of all unavailable boxes
             if same_date_and_size_unavailable:
-                ids_unavailable_good_size_boxes = list(same_date_and_size_unavailable.values_list(
-                    'box', flat=True))
+                ids_unavailable_good_size_boxes = list(
+                    same_date_and_size_unavailable.values_list(
+                        'box', flat=True)
+                )
         # list of the id of all not good size boxes
         ids_bad_size_boxes = list(Box.objects.exclude(
             box_size=size).values_list('id', flat=True))

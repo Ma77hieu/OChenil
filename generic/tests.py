@@ -2,7 +2,6 @@ from decouple import config
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from generic.constants import WAIT_TIME
-from generic.custom_logging import custom_log
 import time
 
 

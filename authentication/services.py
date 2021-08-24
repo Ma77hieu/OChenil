@@ -3,7 +3,7 @@ from authentication.forms import UserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
-from generic.constants import LOG_IN_OK, INVALID_CREDENTIALS
+from generic.constants import INVALID_CREDENTIALS
 from customer.services import Services
 
 
@@ -70,5 +70,8 @@ def signin_service(request):
             dogs = Services().list_dogs(request)
             bookings = Services().list_bookings(request)
             context = (
-                {'form': dog_form, 'user_feedback': user_feedback, 'dogs': dogs, 'bookings': bookings})
+                {'form': dog_form,
+                 'user_feedback': user_feedback,
+                 'dogs': dogs,
+                 'bookings': bookings})
             return ('user.html', context)

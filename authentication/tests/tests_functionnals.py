@@ -3,13 +3,11 @@ from decouple import config
 import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from generic.constants import LOG_IN_OK, LOG_OUT_OK, WAIT_TIME
+from generic.constants import LOG_OUT_OK
 from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
-import time
 
 
 class MySeleniumTests(StaticLiveServerTestCase):
@@ -56,7 +54,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
 
     def test_signup(self):
         """test the user signup function with good credentials"""
-        timeout = 5
         self.selenium.get('{}'.format(self.live_server_url + '/signin'))
         match_label_const = {"username": 'SIGNUP_USERNAME',
                              "password": "SIGNUP_PWD",
@@ -81,7 +78,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
         """test the logout function"""
         login(self, 'regular_user')
         self.selenium.get('{}'.format(self.live_server_url + '/home'))
-        timeout = 2
         logout_button = self.selenium.find_element_by_name('logout')
         logout_button.click()
         ensure_change_page(self)

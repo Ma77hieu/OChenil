@@ -1,9 +1,7 @@
 from customer.services import Services
 from django.http import HttpRequest
 from authentication.models import User
-from administration.models import Booking
 from generic.constants import DOG_ADDED, BOOKING_OK, NO_AVAILABILITY
-from generic.custom_logging import custom_log
 from django.test import TestCase
 
 
@@ -46,8 +44,8 @@ class UnitTest(TestCase):
         assert bookings_id == bookings_id_from_fixture
 
     def test_make_booking_ok(self):
-        """tests the make_booking function and by extension the 
-        'search availability' function.
+        """tests the make_booking function and by extension the
+         'search availability' function.
         Scenario: availability ok
         """
         request = HttpRequest()
@@ -65,8 +63,8 @@ class UnitTest(TestCase):
         assert new_booking_message == BOOKING_OK
 
     def test_make_booking_not_ok(self):
-        """tests the make_booking function and by extension the 
-        'search availability' function.
+        """tests the make_booking function and by extension the
+         'search availability' function.
         Scenario: availability NOT ok
         """
         request = HttpRequest()

@@ -1,5 +1,4 @@
 
-from decouple import config
 import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -10,8 +9,6 @@ from generic.constants import (BOOKING_DELETION_OK,
                                UNAVAILABILITY_OK,
                                IMPOSSIBLE_UNAVAILABILITY)
 from generic.tests import login, ensure_change_page
-from generic.custom_logging import custom_log
-import time
 
 
 class MySeleniumTests(StaticLiveServerTestCase):

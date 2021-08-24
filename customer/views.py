@@ -12,7 +12,10 @@ def user(request):
     dogs = Services().list_dogs(request)
     bookings = Services().list_bookings(request)
     context = (
-        {'form': dog_form, 'user_feedback': user_feedback, 'dogs': dogs, 'bookings': bookings})
+        {'form': dog_form,
+         'user_feedback': user_feedback,
+         'dogs': dogs,
+         'bookings': bookings})
     return render(request, 'user.html', context)
 
 

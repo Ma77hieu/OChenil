@@ -1,15 +1,11 @@
-from administration.models import Dog, Booking, Box, Unavailability, Size
+from administration.models import Booking, Box, Unavailability
 from administration.forms import AllBookingsForm, AllBoxForm
-from authentication.models import User
-from customer.forms import DogForm, BookingForm
 from datetime import date, timedelta, datetime
 from generic.constants import (NBR_DAYS_CAPACITY,
                                IMPOSSIBLE_UNAVAILABILITY,
                                UNAVAILABILITY_OK,
                                BOOKING_DELETION_OK,
                                BOOKING_NOT_DELETED)
-from django.urls import resolve
-from generic.custom_logging import custom_log
 
 
 class Services():
@@ -56,7 +52,9 @@ class Services():
                         nbr_unavailability += 1
                 remain_available = boxes_nbr-nbr_bookings-nbr_unavailability
                 all_infos = (boxes_nbr,
-                             nbr_bookings, nbr_unavailability, remain_available)
+                             nbr_bookings,
+                             nbr_unavailability,
+                             remain_available)
                 capacity.extend(all_infos)
                 # custom_log("capacity", capacity)
             daily_capacity.append([date_start, capacity])
@@ -94,7 +92,8 @@ class Services():
         booking_to_be_canceled = Booking.objects.get(
             pk=id_to_be_canceled)
         booking_to_be_canceled.delete()
-        ids_remaining_bookings = Booking.objects.all().values_list('id', flat=True)
+        ids_remaining_bookings = Booking.objects.all().values_list(
+            'id', flat=True)
         # custom_log("ids_remaining_bookings", ids_remaining_bookings)
         if id_to_be_canceled in ids_remaining_bookings:
             message = BOOKING_NOT_DELETED
@@ -105,8 +104,8 @@ class Services():
         return message, message_type
 
     def create_unavailability(self, request):
-        """Create an unavailability based on information entered 
-        by an admin user in the managemenet.html page"""
+        """Create an unavailability based on information entered
+         by an admin user in the managemenet.html page"""
         id_box_unavailable = request.POST['id_box']
         s_date_year = int(request.POST['start_year'])
         s_date_month = int(request.POST['start_month'])

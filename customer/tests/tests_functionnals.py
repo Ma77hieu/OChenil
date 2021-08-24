@@ -8,7 +8,6 @@ from selenium.webdriver.chrome.options import Options
 from generic.constants import NO_AVAILABILITY
 from generic.tests import login, ensure_change_page
 from generic.custom_logging import custom_log
-import time
 
 
 class MySeleniumTests(StaticLiveServerTestCase):
