@@ -39,7 +39,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_dog(self):
         """test the add dog function"""
         login(self, 'regular_user')
-        ensure_change_page(self)
         field_value_match = [
             ('id_dog_name', 'DOG_NAME'),
             ('id_dog_age', 'DOG_AGE'),
@@ -62,7 +61,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_ok(self):
         """test the add booking function when there is available room"""
         login(self, 'regular_user')
-        ensure_change_page(self)
         self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
@@ -94,7 +92,6 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_not_ok(self):
         """test the add booking function when there is no available box"""
         login(self, 'regular_user')
-        ensure_change_page(self)
         self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
@@ -102,7 +99,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
         ensure_change_page(self)
         dog_name_field = Select(
             self.selenium.find_element_by_id('id_dog_name'))
-        dog_name_field.select_by_index(1)
+        dog_name_field.select_by_visible_text("Rumba")
         field_value_match = [
             ('id_start_date_month', 7),
             ('id_start_date_day', 14),
@@ -112,8 +109,8 @@ class MySeleniumTests(StaticLiveServerTestCase):
             ('id_end_date_year', 0)
         ]
         for field in field_value_match:
-            dog_size_field = Select(self.selenium.find_element_by_id(field[0]))
-            dog_size_field.select_by_index(field[1])
+            date_field = Select(self.selenium.find_element_by_id(field[0]))
+            date_field.select_by_index(field[1])
         booking_btn_in_page = self.selenium.find_element_by_id(
             "booking_btn_in_page")
         booking_btn_in_page.send_keys(Keys.RETURN)
@@ -122,29 +119,9 @@ class MySeleniumTests(StaticLiveServerTestCase):
         displayed_feedback = self.selenium.find_element_by_id(
             "user_feedback").text
         custom_log("displayed_feedback", displayed_feedback)
-
         if NO_AVAILABILITY in displayed_feedback:
             booking_not_added = True
         assert booking_not_added is True
-
-        # custom_log("NO_AVAILABILITY in self.selenium.page_source",
-        #            (NO_AVAILABILITY in self.selenium.page_source))
-        # custom_log("Aug. 16, 2021 not in self.selenium.page_source",
-        #            ("Aug. 16, 2021" not in self.selenium.page_source))
-        # negative_user_feedback_displayed = (
-        #     NO_AVAILABILITY in self.selenium.page_source)
-        # new_booking_not_displayed = (
-        #     ("Aug. 16, 2021") not in self.selenium.page_source)
-        # custom_log("negative_user_feedback_displayed",
-        #            negative_user_feedback_displayed)
-        # custom_log("new_booking_not_displayed", new_booking_not_displayed)
-        # if negative_user_feedback_displayed and new_booking_not_displayed:
-        #     booking_not_added = True
-        # assert booking_not_added is True
-
-        # if (NO_AVAILABILITY in self.selenium.page_source) and ("Aug. 16, 2021" not in self.selenium.page_source):
-        #     booking_not_added = True
-        # assert booking_not_added is True
 
     def check_navbar_collapsed(self):
         """check foor the presence of the collapsed navbar menu button,
