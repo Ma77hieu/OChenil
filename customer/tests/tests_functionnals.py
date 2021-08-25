@@ -39,6 +39,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_dog(self):
         """test the add dog function"""
         login(self, 'regular_user')
+        ensure_change_page(self)
         field_value_match = [
             ('id_dog_name', 'DOG_NAME'),
             ('id_dog_age', 'DOG_AGE'),
@@ -61,6 +62,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_ok(self):
         """test the add booking function when there is available room"""
         login(self, 'regular_user')
+        ensure_change_page(self)
         self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")
@@ -92,6 +94,7 @@ class MySeleniumTests(StaticLiveServerTestCase):
     def test_add_booking_not_ok(self):
         """test the add booking function when there is no available box"""
         login(self, 'regular_user')
+        ensure_change_page(self)
         self.check_navbar_collapsed()
         booking_btn = self.selenium.find_element_by_id(
             "menu_booking_link_usr")

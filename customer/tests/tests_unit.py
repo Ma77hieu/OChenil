@@ -30,10 +30,8 @@ class UnitTest(TestCase):
         test_user = User.objects.get(pk=1)
         request.user = test_user
         dogs = Services().list_dogs(request)
-        dogs_id = list(dogs.values_list('id', flat=True))
-        custom_log("dogs_id", dogs_id)
+        dogs_id = sorted(list(dogs.values_list('id', flat=True)))
         dogs_id_from_fixture = [8, 9, 10, 11]
-        custom_log("dogs_id_from_fixture", dogs_id_from_fixture)
         assert dogs_id == dogs_id_from_fixture
 
     def test_list_bookings(self):
@@ -42,7 +40,7 @@ class UnitTest(TestCase):
         test_user = User.objects.get(pk=1)
         request.user = test_user
         bookings = Services().list_bookings(request)
-        bookings_id = list(bookings.values_list('id', flat=True))
+        bookings_id = sorted(list(bookings.values_list('id', flat=True)))
         bookings_id_from_fixture = [1, 2, 3, 6]
         assert bookings_id == bookings_id_from_fixture
 
