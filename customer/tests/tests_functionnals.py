@@ -119,20 +119,28 @@ class MySeleniumTests(StaticLiveServerTestCase):
         booking_btn_in_page.send_keys(Keys.RETURN)
         ensure_change_page(self)
         booking_not_added = False
+        displayed_feedback = self.selenium.find_element_by_id(
+            "user_feedback").text
+        custom_log("displayed_feedback", displayed_feedback)
+
+        if NO_AVAILABILITY in displayed_feedback:
+            booking_not_added = True
+        assert booking_not_added is True
+
         # custom_log("NO_AVAILABILITY in self.selenium.page_source",
         #            (NO_AVAILABILITY in self.selenium.page_source))
         # custom_log("Aug. 16, 2021 not in self.selenium.page_source",
         #            ("Aug. 16, 2021" not in self.selenium.page_source))
-        negative_user_feedback_displayed = (
-            NO_AVAILABILITY in self.selenium.page_source)
-        new_booking_not_displayed = (
-            ("Aug. 16, 2021") not in self.selenium.page_source)
-        custom_log("negative_user_feedback_displayed",
-                   negative_user_feedback_displayed)
-        custom_log("new_booking_not_displayed", new_booking_not_displayed)
-        if negative_user_feedback_displayed and new_booking_not_displayed:
-            booking_not_added = True
-        assert booking_not_added is True
+        # negative_user_feedback_displayed = (
+        #     NO_AVAILABILITY in self.selenium.page_source)
+        # new_booking_not_displayed = (
+        #     ("Aug. 16, 2021") not in self.selenium.page_source)
+        # custom_log("negative_user_feedback_displayed",
+        #            negative_user_feedback_displayed)
+        # custom_log("new_booking_not_displayed", new_booking_not_displayed)
+        # if negative_user_feedback_displayed and new_booking_not_displayed:
+        #     booking_not_added = True
+        # assert booking_not_added is True
 
         # if (NO_AVAILABILITY in self.selenium.page_source) and ("Aug. 16, 2021" not in self.selenium.page_source):
         #     booking_not_added = True
