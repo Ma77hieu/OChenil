@@ -29,10 +29,16 @@
         </div>
         <!-- Masthead Subheading-->
         <p class="masthead-subheading font-weight-light mb-4">Sejour canin de qualité.</p>
-        <a class="nav-link pz-5 mz-5 rounded bg-secondary text-white fs-2" href="{% url 'booking'%}">
-            Réservation
-        </a>
-        <a class="text-white masthead-subheading my-4" href="#location">S'inscrire / se connecter</a>
+        {%if user.id%}
+	<a class="nav-link pz-5 mz-5 rounded bg-secondary text-white fs-2" href="{% url 'booking'%}">
+	Réservation
+	</a>
+	{%else%}
+	<a class="nav-link pz-5 mz-5 rounded bg-secondary text-white fs-2" href="{% url 'signin'%}">
+	Réservation
+	</a>
+	{%endif%}
+	<a class="text-white masthead-subheading my-4" href="{% url 'signin'%}">S'inscrire / se connecter</a>
     </div>
 </header>
 <!-- Portfolio Section-->
