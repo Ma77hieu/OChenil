@@ -28,7 +28,9 @@ SECRET_KEY = config("DJANGO_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['app2.matthieuortlieb.fr','ochenil.matthieuortlieb.fr','206.189.8.225']
+ALLOWED_HOSTS = ['app2.matthieuortlieb.fr',
+                 'ochenil.matthieuortlieb.fr',
+                 '206.189.8.225']
 
 
 # Application definition
@@ -165,3 +167,5 @@ LOGGING = {
         'level': 'ERROR',
     },
 }
+
+LOGIN_URL = '/signin'
