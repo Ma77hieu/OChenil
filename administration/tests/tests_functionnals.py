@@ -38,6 +38,16 @@ class MySeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super().tearDownClass()
 
+    def test_access_management_with_std_user(self):
+        """make sure a non admin user trying to access management page is
+        redirected to the login page"""
+        login(self, 'regular_user')
+        self.selenium.get('{}'.format(self.live_server_url + '/management'))
+        management_page_access = True
+        if "Je me connecte" in self.selenium.page_source:
+            management_page_access = False
+        assert management_page_access is False
+
     def test_cancel_booking(self):
         """test the cancelation of a booking"""
         login(self, 'admin')
